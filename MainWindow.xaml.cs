@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.VisualBasic;
+using CarShowroom.Models;
 
 namespace CarShowroom
 {
@@ -62,15 +63,21 @@ namespace CarShowroom
                     string inputMake, inputModel, inputMY, inputEC, inputPrice;
 
                     inputMake = Interaction.InputBox("Input Make", Title, "Make", 500, 300);
-                    inputModel = Interaction.InputBox("Input Description", Title, "Model", 500, 300);
-                    var DepartmentInput = Interaction.InputBox("Input Department ID", Title, "0", 500, 300);
+                    inputModel = Interaction.InputBox("Input Model", Title, "Model", 500, 300);
+                    inputMY = Interaction.InputBox("Input Model Year", Title, "Model Year", 500, 300);
+                    inputEC = Interaction.InputBox("Input Engine Capacity", Title, "Engine Capacity", 500, 300);
+                    inputPrice = Interaction.InputBox("Input Price", Title, "Price", 500, 300);
+                    var ShowInput = Interaction.InputBox("Input Showroom ID", Title, "0", 500, 300);
 
-                    int showId = 0;
-                    bool isShowInt = int.TryParse(DepartmentInput, out showId);
+                    int showId = 0, price = 0, modelyear = 0, engineCapacity = 0;
+                    bool isMyInt = int.TryParse(inputMY, out modelyear);
+                    bool isEcInt = int.TryParse(inputEC, out engineCapacity);
+                    bool isPriceInt = int.TryParse(inputPrice, out price);
+                    bool isShowInt = int.TryParse(ShowInput, out showId);
 
-                    var departEntity = context.Showrooms.FirstOrDefault(item => item.ShowroomId == showId);
+                    var showEntity = context.Showrooms.FirstOrDefault(item => item.ShowroomId == showId);
 
-                    if (inputName == "" || inputDesc == "" || departEntity == null)
+                    if (inputMake == "" || inputModel == "" || isShowInt == false || isMyInt == false || isEcInt == false || isPriceInt == false || showEntity == null)
                     {
                         string message = "You are supposed to input true data!";
                         string title = "Error!";
@@ -78,12 +85,15 @@ namespace CarShowroom
                         return;
                     }
 
-                    entity.Name = inputName;
-                    entity.Description = inputDesc;
-                    entity.DepartmentId = departId;
+                    entity.Make = inputMake;
+                    entity.Model = inputModel;
+                    entity.ModelYear = modelyear;
+                    entity.EngineCapacity = engineCapacity;
+                    entity.Price = price;
+                    entity.ShowId = showId;
 
                     context.SaveChanges();
-                    Button_Click(sender, e);
+                    updateBtn_Click(sender, e);
                 }
 
                 else
@@ -91,6 +101,83 @@ namespace CarShowroom
                     MessageBox.Show("Input true id value!");
                 }
             }
+        }
+
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CarsDbContext context = new CarsDbContext();
+
+            string Title, Default;
+            Title = "Data";
+            Default = "0";
+
+            var idInput = Interaction.InputBox("Input Id", Title, Default, 500, 300);
+            int id = 0;
+            bool isInt = int.TryParse(idInput, out id);
+
+            if (isInt)
+            {
+                Car cars = new Car() { Id = id };
+                using (context)
+                {
+                    context.Entry(cars).State = EntityState.Deleted;
+                    context.SaveChanges();
+
+                    updateBtn_Click(sender, e);
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Input true id value!");
+            }
+        }
+
+        private void addCarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CarsDbContext context = new CarsDbContext();
+
+            string inputMake, inputModel, inputMY, inputEC, inputPrice;
+            Title = "Data";
+
+            inputMake = Interaction.InputBox("Input Make", Title, "Make", 500, 300);
+            inputModel = Interaction.InputBox("Input Model", Title, "Model", 500, 300);
+            inputMY = Interaction.InputBox("Input Model Year", Title, "Model Year", 500, 300);
+            inputEC = Interaction.InputBox("Input Engine Capacity", Title, "Engine Capacity", 500, 300);
+            inputPrice = Interaction.InputBox("Input Price", Title, "Price", 500, 300);
+            var ShowInput = Interaction.InputBox("Input Showroom ID", Title, "0", 500, 300);
+
+            int showId = 0, price = 0, modelyear = 0, engineCapacity = 0;
+            bool isMyInt = int.TryParse(inputMY, out modelyear);
+            bool isEcInt = int.TryParse(inputEC, out engineCapacity);
+            bool isPriceInt = int.TryParse(inputPrice, out price);
+            bool isShowInt = int.TryParse(ShowInput, out showId);
+
+            using (context)
+            {
+                var entity = context.Showrooms.FirstOrDefault(item => item.ShowroomId == showId);
+
+                if (isShowInt && isEcInt && isMyInt && isPriceInt && entity != null)
+                {
+                    var car = new Car { Make = inputMake, Model = inputModel, ModelYear = modelyear, EngineCapacity = engineCapacity, Price = price, ShowId = showId };
+
+                    context.Add(car);
+                    context.SaveChanges();
+
+                    updateBtn_Click(sender, e);
+                }
+
+                else
+                {
+                    MessageBox.Show("Input true id value!");
+                }
+            }
+        }
+
+        private void showroomListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var showroomWin = new Window1();
+            showroomWin.Show();
         }
     }
 }

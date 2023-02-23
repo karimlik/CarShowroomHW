@@ -61,3 +61,5 @@ D:\Docs\itStep\ADO.NET\HW\CarShowroom\obj\Debug\net7.0-windows\CarShowroom.pdb
 D:\Docs\itStep\ADO.NET\HW\CarShowroom\obj\Debug\net7.0-windows\CarShowroom.genruntimeconfig.cache
 D:\Docs\itStep\ADO.NET\HW\CarShowroom\obj\Debug\net7.0-windows\ref\CarShowroom.dll
 D:\Docs\itStep\ADO.NET\HW\CarShowroom\bin\Debug\net7.0-windows\Microsoft.Extensions.Configuration.dll
+D:\Docs\itStep\ADO.NET\HW\CarShowroom\obj\Debug\net7.0-windows\Window1.g.cs
+D:\Docs\itStep\ADO.NET\HW\CarShowroom\obj\Debug\net7.0-windows\Window1.baml

@@ -26,5 +26,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="updateBtn" Grid.Column="2" Content="Update" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="48" Width="180" Click="updateBtn_Click"/>
+        <Button x:Name="changeBtn" Grid.Column="1" Content="Change" HorizontalAlignment="Center" Margin="0,63,0,0" VerticalAlignment="Top" Height="48" Width="180" Click="changeBtn_Click"/>
+        <Button x:Name="deleteBtn" Grid.Column="1" Content="Delete" HorizontalAlignment="Center" Margin="0,116,0,0" VerticalAlignment="Top" Height="48" Width="180" Click="deleteBtn_Click"/>
+        <Button x:Name="addCarBtn" Grid.Column="1" Content="Add Car" HorizontalAlignment="Center" Margin="0,169,0,0" VerticalAlignment="Top" Height="48" Width="180" Click="addCarBtn_Click"/>
+        <Button x:Name="showroomListBtn" Grid.Column="1" Content="Showroom List" HorizontalAlignment="Center" Margin="0,222,0,0" VerticalAlignment="Top" Height="48" Width="180" Click="showroomListBtn_Click"/>
     </Grid>
 </Window>
